@@ -1,0 +1,185 @@
+﻿@model cstore.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<style>
+    .product-details {
+        margin-top: 20px;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+        font-family: 'Arial', sans-serif;
+        display: inline-block; /* Ensures it takes the width of its content */
+        vertical-align: top;
+    }
+
+    .product-label {
+        font-size: 16px;
+        font-weight: bold;
+        color: #333;
+        text-align: right;
+        margin-bottom: 5px;
+    }
+
+    .product-value {
+        font-size: 18px;
+        color: #555;
+        margin-bottom: 15px;
+    }
+
+
+
+    .row {
+        margin-bottom: 15px;
+    }
+
+    .product-value-true {
+        font-size: 18px;
+        color: green; /* Change this to the desired color for "true" */
+        margin-bottom: 15px;
+    }
+
+    .product-value-false {
+        font-size: 18px;
+        color: red; /* Change this to the desired color for "false" */
+        margin-bottom: 15px;
+    }
+
+
+</style>
+
+<h1>Details</h1>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="product-details">
+        <div class="row">
+            <dt class="col-sm-3 product-label">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+            <dd class="col-sm-9 product-value">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        </div>
+       <div class="row">
+            <dt class="col-sm-3 product-label">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+            <dd class="col-sm-9 product-value">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-3 product-label">
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+            <dd class="col-sm-9 product-value">
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-3 product-label">
+            @Html.DisplayNameFor(model => model.Size)
+        </dt>
+            <dd class="col-sm-9 product-value">
+            @Html.DisplayFor(model => model.Size)
+        </dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-3 product-label">
+            @Html.DisplayNameFor(model => model.ImageURL)
+        </dt>
+        <dd class = "col-sm-9">
+            @if (Model.ImageURL != null)
+            {
+                if (Model.ImageURL.StartsWith("http"))
+                {
+                    <div class="product-image-container">
+                        <img src="@Model.ImageURL" asp-append-version="true" width="250px" height="250px"  />
+                    </div>
+                }
+                else
+                {
+                    <div class="product-image-container">
+                            <img class="product-image" src="~/@Model.ImageURL" asp-append-version="true" width="300px" height="250px" />
+                    </div>
+                }
+            }
+        </dd>
+        </div>
+        <div class="row">
+            <dt class="col-sm-3 product-label">
+            @Html.DisplayNameFor(model => model.IsAvailable)
+        </dt>
+            <dd class="col-sm-9 product-value">
+                @if (Model.IsAvailable)
+                {
+                    <span class="product-value-true">Yes</span>
+                }
+                else
+                {
+                    <span class="product-value-false">No</span>
+                }
+        </dd>
+
+        </div>
+        <div class="row">
+            <dt class="col-sm-3 product-label">
+            @Html.DisplayNameFor(model => model.Brand)
+        </dt>
+            <dd class="col-sm-9 product-value">
+                @{
+                   
+                    var brands = new List<Brand>
+                {
+                new Brand { Id = 1, Name = "Nike" },
+                new Brand { Id = 2, Name = "Adidas" },
+                new Brand { Id = 3, Name = "Vans" },
+                
+                };
+
+                  
+                    var productBrand = brands.FirstOrDefault(brand => brand.Id == Model.Brand.Id);
+
+                    
+                    if (productBrand != null)
+                    {
+                        @productBrand.Name
+                    }
+                }
+            </dd>
+            <div>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("User"))
+                {
+                    <a asp-controller="Users" asp-action="AddProductBought" asp-route-productid="@Model.Id">Buy this Product</a>
+                }
+        </div>
+        </div>
+    </dl>
+</div>
+
+<div>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+    } |
+    <a asp-action="Index">Back to List</a>
+</div>
+<script>
+    $(document).ready(function () {
+        $('.product-value-true').each(function () {
+            $(this).hide(); // Hide the original true value
+            $(this).after('<span class="styled-true">Yes</span>'); // Create custom styled text
+        });
+
+        $('.product-value-false').each(function () {
+            $(this).hide(); // Hide the original false value
+            $(this).after('<span class="styled-false">No</span>'); // Create custom styled text
+        });
+    });
+</script>

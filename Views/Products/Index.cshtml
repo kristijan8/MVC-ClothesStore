@@ -1,0 +1,82 @@
+﻿@model cstore.ViewModels.ProductCategoryViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Products</h1>
+
+<p>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="search-button">Create New</a>
+    }
+</p>
+
+<form asp-controller="Products" asp-action="Index" method="get" class="search-form-container">
+    <h3><b>
+        Category: <input type="text" asp-for="SearchCategory" class="search-input" />
+        <input type="submit" value="Filter" class="search-button" />
+    </h3>
+    </b>
+</form>
+
+<form asp-controller="Products" asp-action="Index" method="get" class="search-form-container">
+    <h3><b>
+        Size: <input type="text" asp-for="SearchPrice" class="search-input" />
+        <input type="submit" value="Filter" class="search-button" />
+    </h3>
+    </b>
+</form>
+
+<ul class="product-list">
+    @foreach (var item in Model.Products)
+    {
+        <li class="product-item">
+            <div class="product-image-container">
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img src="@item.ImageURL" alt="Product Image" class="product-image">
+                </a>
+            </div>
+            <h3> <b>@Html.DisplayFor(modelItem => item.Name) </b></h3>
+            <h4> Price:  @Html.DisplayFor(modelItem => item.Price ) €</h4>
+            
+            <h4>Availability: @Html.DisplayFor(modelItem => item.IsAvailable)</h4>
+            <h6></h6>
+            <div>
+                @if (User.Identity.IsAuthenticated && User.IsInRole("User")){
+                    <h3><a asp-controller="Users" asp-action="AddProductBought" asp-route-productid="@item.Id">Buy this Product</a></h3>
+                }
+
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a>
+                } |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                @if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                }
+            </div>
+        </li>
+    }
+</ul>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const productImages = document.querySelectorAll('.product-image-container');
+
+        productImages.forEach(function (container) {
+            const largeImage = container.querySelector('.product-large-image');
+
+            container.addEventListener('mouseenter', function () {
+                largeImage.style.display = 'block';
+            });
+
+            container.addEventListener('mouseleave', function () {
+                largeImage.style.display = 'none';
+            });
+        });
+    });
+</script>

@@ -1,0 +1,87 @@
+﻿@model IEnumerable<cstore.Models.Product>
+
+
+@{
+    ViewData["Title"] = "View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>My Products List</h1>
+
+<ul class="product-list">
+            @foreach (var item in Model)
+            {
+                <div >
+        <h3>@Html.DisplayFor(modelItem => item.Name)</h3>
+        <h3> <b>Price: </b> @Html.DisplayFor(modelItem => item.Price ) €</h3>
+                @if (item.ImageURL != null)
+                {
+                    if (item.ImageURL.StartsWith("http"))
+                    {
+                <div class="product-image-container">
+                    <img class="product-image" src="@item.ImageURL" asp-append-version="true" />
+                        </div>
+                    }else {
+                <div class="product-image-container">
+                    <img class="product-image" src="~/@item.ImageURL" asp-append-version="true" />
+                    </div>
+                    }
+                }
+                else
+                {
+            <img class="product-image" asp-append-version="true" />
+
+                }
+
+        
+
+        <div>
+        <button><a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">Details</a> </button>
+        <button><a asp-controller="Reviews" asp-action="WriteReviewFromUser" asp-route-productid="@item.Id">Write a Review!</a> </button>
+        </div>
+        </div>
+
+            }
+        
+
+       
+            
+        
+</ul>
+       @*  @foreach (var item in Model)
+        {
+           @*  <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Price)
+                </td>
+             
+                <td> *@
+                    @*@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> <span>|</span>
+                }*@
+                  @*   <button><a asp-controller="Products" asp-action="Details" asp-route-id="@item.Id">Details</a> </button> *@
+                    @* @if (item.DownloadUrl != null && item.DownloadUrl != "" && item.DownloadUrl != " ")
+                {
+                <button>
+                <form asp-controller="Books" asp-action="DownloadFile">
+                <input type="hidden" name="downloadUrl" value="@item.DownloadUrl" />
+                <input type="submit" value="Download Book PDF" />
+                </form>
+                </button>
+                }*@
+                      @*   else
+                        {
+                        <button disabled>Product Not Available At The Moment.</button>
+                        } *@
+                  @*   <button><a asp-controller="Reviews" asp-action="WriteReviewFromUser" asp-route-productid="@item.Id">Write a Review!</a> </button> *@
+                    @*@if (User.Identity.IsAuthenticated && User.IsInRole("Admin"))
+                {
+                <span>|</span>
+
+                <a asp-action="Delete" asp-route-bookid="@item.Id">Delete</a>
+                } *@
+                

@@ -1,0 +1,165 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+.product-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .product-table th,
+    .product-table td {
+        padding: 10px;
+        text-align: center;
+        border: 1px solid #ddd;
+    }
+
+.product-image {
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+}
+
+.product-item {
+    flex: 0 0 calc(33.3333% - 20px);
+    margin-bottom: 20px;
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+    background-color: #f9f9f9;
+}
+
+.product-image {
+    max-width: 350px;
+    max-height: 350px;
+}
+.product-image-container {
+        position: relative;
+        cursor: pointer;
+    }
+
+    .product-large-image {
+        display: none;
+        position: absolute;
+        top: 0;
+       
+        width: 300px;
+        max-height: 300px;
+        border: 1px solid #ddd;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        z-index: 1;
+    }
+.search-form-container {
+    display: flex;
+    /*justify-content: center;
+    align-items: center;*/
+    background-color: #f5f5f5;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Style for the search input */
+.search-input {
+    flex: 1;
+    padding: 8px;
+    border: none;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+}
+
+/* Style for the search button */
+.search-button {
+    background-color:lightgray;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+}
+
+body {
+    background-color: #f8f8f8;
+    color: #333;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin-top: 100px;
+}
+
+.brand-name {
+    font-size: 48px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 20px;
+    text-shadow:revert;
+}
+
+.slogan {
+    font-size: 20px;
+    color: black;
+    margin-bottom: 40px;
+    text-shadow:inherit;
+}
+
+.start-shopping-button {
+    background-color: papayawhip;
+    color: black;
+    padding: 12px 30px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+    .start-shopping-button:hover {
+        background-color: #0056b3;
+    }
+
+.backgr {
+    background-image: url('../images/nike-wallpaper-desktop-4k-2048x1280.jpg');
+    /* Ensure the background image covers the entire viewport */
+    background-size: cover;
+    /* Center the background image vertically and horizontally */
+    background-position: center;
+    /* Set the minimum height to 100vh to cover the whole viewport */
+    min-height: 100vh;
+    margin:0;
+}
+a {
+    color: gray; /* Set the regular color */
+    text-decoration: none; /* Remove underline */
+}
+
+    /* Style for the anchor tag on hover */
+    a:hover {
+        color: darkgray; /* Set the color on hover */
+        /* You can also add additional styles on hover, for example, text-decoration: underline; */
+    }
+
+
+
+
+
+
